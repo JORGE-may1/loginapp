@@ -3,100 +3,176 @@
 <head>
   <title>Student Login Portal</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: Arial;
-      background-color: PowderBlue;
-      text-align: center;
-      margin-top: 80px;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
     }
 
+    .top-icon { margin-bottom: 10px; }
+
     h1 {
-      color: black;
-      margin-bottom: 20px;
-      font-size: 35px;
-      letter-spacing: 1px;
+      color: #0d1b5e;
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      text-align: center;
     }
 
     .login-box {
+      background: #c9e8f5;
+      padding: 32px 28px 28px;
+      width: 340px;
+      border-radius: 20px;
+      box-shadow: 0px 4px 18px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .avatar {
+      background-color: #0d1b5e;
+      border-radius: 50%;
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      width: 100%;
+      margin-bottom: 14px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 6px;
+      padding-left: 2px;
+    }
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
       background: white;
-      padding: 30px 20px;
-      width: 320px;
-      margin: auto;
-      border-radius: 12px;
-      box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+      border-radius: 10px;
+      padding: 10px 14px;
+      gap: 10px;
     }
 
-    .login-box h2 {
-      color: #1a1a2e;
-      margin-bottom: 16px;
-    }
-
-    input {
-      width: 90%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+    .input-wrapper input {
+      border: none;
+      outline: none;
       font-size: 14px;
+      width: 100%;
+      color: #333;
+      background: transparent;
     }
+
+    .input-wrapper input::placeholder { color: #aaa; }
 
     button {
-      padding: 11px;
-      width: 95%;
-      background-color: DodgerBlue;
+      width: 100%;
+      padding: 14px;
+      background-color: #0d1b5e;
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 10px;
       cursor: pointer;
-      font-size: 15px;
-      margin-top: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 10px;
       transition: background 0.2s;
     }
 
-    button:hover:not(:disabled) {
-      background-color: #1a7fd4;
-    }
+    button:hover:not(:disabled) { background-color: #85bfd8; }
 
     button:disabled {
-      background-color: #aaa;
+      background-color: #ccc;
+      color: #888;
       cursor: not-allowed;
     }
 
     #message {
-      margin-top: 12px;
+      margin-top: 14px;
       font-weight: bold;
       font-size: 14px;
+      text-align: center;
     }
 
     #attempts {
-      margin-top: 6px;
+      margin-top: 4px;
       font-size: 12px;
-      color: #888;
+      color: #555;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <h1>🎓 STUDENT PORTAL</h1>
+  <!-- Graduation hat emoji -->
+  <div class="top-icon" style="font-size: 80px; line-height: 1;">🎓</div>
+
+  <h1>Student Login Portal</h1>
 
   <div class="login-box">
-    <h2>Login</h2>
-    <input type="text" id="username" placeholder="Enter Username">
-    <input type="password" id="password" placeholder="Enter Password">
+
+    <!-- Avatar -->
+    <div class="avatar">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="15" r="9" fill="#c9e8f5"/>
+        <path d="M4 38 C4 28 36 28 36 38" fill="#c9e8f5"/>
+      </svg>
+    </div>
+
+    <!-- Username -->
+    <div class="input-group">
+      <label>Username</label>
+      <div class="input-wrapper">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="8" r="4" fill="#0d1b5e"/>
+          <path d="M4 20 C4 14 20 14 20 20" fill="#0d1b5e"/>
+        </svg>
+        <input type="text" id="username" placeholder="Enter Username">
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="input-group">
+      <label>Password</label>
+      <div class="input-wrapper">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <rect x="5" y="11" width="14" height="10" rx="2" fill="#0d1b5e"/>
+          <path d="M8 11V7a4 4 0 018 0v4" stroke="#0d1b5e" stroke-width="2" fill="none"/>
+          <circle cx="12" cy="16" r="1.5" fill="white"/>
+        </svg>
+        <input type="password" id="password" placeholder="Enter Password">
+      </div>
+    </div>
+
     <button onclick="login()" id="loginBtn">Login</button>
     <p id="message"></p>
     <p id="attempts"></p>
   </div>
 
   <script>
-    // TASK 2: 3 users defined (Task 1 uses first name + birth year as one of them)
     var users = [
-      { username: "Richelle",     password: "1628" },  // TASK 1: first name + birth year
+      { username: "Richelle Anne",     password: "2004" },
       { username: "student1", password: "1111" },
       { username: "student2", password: "2222" }
     ];
 
-    // TASK 3: attempts limit
     var maxAttempts = 3;
     var attempts = 0;
     var locked = false;
@@ -109,7 +185,6 @@
       var msgEl = document.getElementById("message");
       var attEl = document.getElementById("attempts");
 
-      // Check against all users
       var matchedUser = null;
       for (var i = 0; i < users.length; i++) {
         if (user === users[i].username && pass === users[i].password) {
@@ -119,20 +194,17 @@
       }
 
       if (matchedUser) {
-        // TASK 5: Welcome message with username
         msgEl.innerHTML = "✅ Welcome, " + matchedUser + "!";
         msgEl.style.color = "green";
         attEl.innerHTML = "";
         document.getElementById("loginBtn").disabled = true;
         document.getElementById("username").disabled = true;
         document.getElementById("password").disabled = true;
-
       } else {
         attempts++;
         var remaining = maxAttempts - attempts;
 
         if (attempts >= maxAttempts) {
-          // TASK 3: Lock the account
           locked = true;
           msgEl.innerHTML = "🔒 Account Locked!";
           msgEl.style.color = "darkred";
@@ -148,7 +220,6 @@
       }
     }
 
-    // Allow pressing Enter to login
     document.addEventListener("keydown", function(e) {
       if (e.key === "Enter") login();
     });
