@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Login Portal</title>
+  <style>
+    body {
+      font-family: Arial;
+      background-color: PowderBlue;
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    h1 {
+      color: black;
+      margin-bottom: 20px;
+      font-size: 22px;
+      letter-spacing: 1px;
+    }
+
+    .login-box {
+      background: white;
+      padding: 30px 20px;
+      width: 320px;
+      margin: auto;
+      border-radius: 12px;
+      box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+    }
+
+    .login-box h2 {
+      color: #1a1a2e;
+      margin-bottom: 16px;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 11px;
+      width: 95%;
+      background-color: DodgerBlue;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+
+    button:hover:not(:disabled) {
+      background-color: #1a7fd4;
+    }
+
+    button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+
+    #message {
+      margin-top: 12px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    #attempts {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎓 Student Login Portal</h1>
+
+  <div class="login-box">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Enter Username">
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="login()" id="loginBtn">Login</button>
+    <p id="message"></p>
+    <p id="attempts"></p>
+  </div>
+
+  <script>
+    // TASK 2: 3 users defined (Task 1 uses first name + birth year as one of them)
+    var users = [
+      { username: "Richelle",     password: "1628" },  // TASK 1: first name + birth year
+      { username: "student1", password: "1111" },
+      { username: "student2", password: "2222" }
+    ];
+
+    // TASK 3: attempts limit
+    var maxAttempts = 3;
+    var attempts = 0;
+    var locked = false;
+
+    function login() {
+      if (locked) return;
+
+      var user = document.getElementById("username").value.trim();
+      var pass = document.getElementById("password").value.trim();
+      var msgEl = document.getElementById("message");
+      var attEl = document.getElementById("attempts");
+
+      // Check against all users
+      var matchedUser = null;
+      for (var i = 0; i < users.length; i++) {
+        if (user === users[i].username && pass === users[i].password) {
+          matchedUser = users[i].username;
+          break;
+        }
+      }
+
+      if (matchedUser) {
+        // TASK 5: Welcome message with username
+        msgEl.innerHTML = "✅ Welcome, " + matchedUser + "!";
+        msgEl.style.color = "green";
+        attEl.innerHTML = "";
+        document.getElementById("loginBtn").disabled = true;
+        document.getElementById("username").disabled = true;
+        document.getElementById("password").disabled = true;
+
+      } else {
+        attempts++;
+        var remaining = maxAttempts - attempts;
+
+        if (attempts >= maxAttempts) {
+          // TASK 3: Lock the account
+          locked = true;
+          msgEl.innerHTML = "🔒 Account Locked!";
+          msgEl.style.color = "darkred";
+          attEl.innerHTML = "Too many failed attempts.";
+          document.getElementById("loginBtn").disabled = true;
+          document.getElementById("username").disabled = true;
+          document.getElementById("password").disabled = true;
+        } else {
+          msgEl.innerHTML = "❌ Invalid Username or Password!";
+          msgEl.style.color = "red";
+          attEl.innerHTML = "Attempts remaining: " + remaining;
+        }
+      }
+    }
+
+    // Allow pressing Enter to login
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") login();
+    });
+  </script>
+
+</body>
+</html>
